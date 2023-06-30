@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:real_estate/ui/common/app_colors.dart';
 
 import '../../common/ui_helpers.dart';
+import 'product_tour.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -63,7 +65,9 @@ class SplashScreen extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
                             backgroundColor: kcPrimaryColor),
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.to(ProductTour());
+                        },
                         child: Text("let\'s start")))
               ]),
             )
