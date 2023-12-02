@@ -79,19 +79,17 @@ class SplashScreen extends StatelessWidget {
                   SizedBox(
                     height: screenHeightFraction(context, dividedBy: 20),
                     width: screenWidthFraction(context, dividedBy: 3),
-                    child: Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Get.to(Onboarding());
-                        },
-                        child: Text(
-                          "Get Started",
-                          style: TextStyle(
-                              color: kcWhite,
-                              fontSize: 16,
-                              fontFamily: "Lato",
-                              fontWeight: FontWeight.bold),
-                        ),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.to(Onboarding());
+                      },
+                      child: Text(
+                        "Get Started",
+                        style: TextStyle(
+                            color: kcWhite,
+                            fontSize: 16,
+                            fontFamily: "Lato",
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
