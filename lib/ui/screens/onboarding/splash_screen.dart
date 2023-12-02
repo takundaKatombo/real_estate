@@ -5,6 +5,7 @@ import 'package:real_estate/ui/common/app_colors.dart';
 import 'package:real_estate/ui/screens/onboarding/onboarding.dart';
 
 import '../../common/ui_helpers.dart';
+import 'product_tour.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
