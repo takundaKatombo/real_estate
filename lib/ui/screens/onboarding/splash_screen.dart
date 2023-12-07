@@ -82,7 +82,7 @@ class SplashScreen extends StatelessWidget {
                     width: screenWidthFraction(context, dividedBy: 3),
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.to(Onboarding());
+                        Get.to(() => Onboarding());
                       },
                       child: Text(
                         "Get Started",
