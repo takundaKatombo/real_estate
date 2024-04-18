@@ -98,8 +98,10 @@ class _LogInOptionState extends State<LogInOption> {
                   // textColor: Colors.white,
                   style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -173,7 +175,7 @@ class _LogInOptionState extends State<LogInOption> {
                       color: kcPrimaryBlueColor),
                   children: const <TextSpan>[
                     TextSpan(
-                        text: 'Register ?',
+                        text: 'Register',
                         style: TextStyle(fontWeight: FontWeight.w800)),
                   ],
                 ),

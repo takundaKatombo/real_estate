@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:real_estate/ui/common/app_colors.dart';
-import 'package:get/get.dart';
 import 'package:real_estate/ui/common/app_colors.dart';
 import 'package:real_estate/ui/screens/onboarding/splash_screen.dart';
 
@@ -14,10 +11,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp(
       theme: ThemeData(
-        primarySwatch: kcPrimaryColorMaterial,
-      ),
+          // primarySwatch: kcPrimaryColorMaterial,
+          elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ButtonStyle(
+        textStyle: MaterialStateProperty.all(TextStyle(color: kcWhite)),
+        backgroundColor: MaterialStateProperty.all(kcPrimaryColor),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
+      ))),
       home: const SplashScreen(),
     );
   }

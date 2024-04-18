@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
 import 'package:real_estate/ui/common/app_colors.dart';
 import 'package:real_estate/ui/screens/onboarding/onboarding.dart';
 
@@ -40,7 +39,7 @@ class SplashScreen extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: SizedBox(
-              height: screenHeightFraction(context, dividedBy: 2.9),
+              height: screenHeightFraction(context, dividedBy: 2.5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -82,7 +81,12 @@ class SplashScreen extends StatelessWidget {
                     width: screenWidthFraction(context, dividedBy: 3),
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.to(() => Onboarding());
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (builder) => Onboarding(),
+                          ),
+                        );
                       },
                       child: Text(
                         "Get Started",

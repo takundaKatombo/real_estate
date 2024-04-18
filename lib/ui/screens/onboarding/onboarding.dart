@@ -41,27 +41,29 @@ class _OnboardingState extends State<Onboarding> {
           // height: 400,
         ),
         actions: [
-          InkWell(
-            onTap: () {},
-            child: Container(
-                margin: EdgeInsets.fromLTRB(0, 20, 20, 0),
-                height: 30,
-                width: 100,
-                decoration: BoxDecoration(
-                    color: skipLightGrey,
-                    borderRadius: BorderRadius.circular(30)),
-                child: Center(child: Text("Skip"))),
+          Container(
+            margin: EdgeInsets.fromLTRB(0, 20, 20, 0),
+            height: screenHeightFraction(context, dividedBy: 15),
+            width: screenWidthFraction(context, dividedBy: 3.5),
+            decoration: BoxDecoration(
+              color: skipLightGrey,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Center(
+              child: TextButton(onPressed: () {}, child: Text("Skip")),
+            ),
           ),
         ],
       ),
       body: SizedBox(
         height: screenHeight(context),
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            verticalSpaceMedium,
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: Text(
                 "Find best place \nto stay in good price ",
                 style: TextStyle(
                     color: kcDarkGreyColor,
@@ -69,10 +71,13 @@ class _OnboardingState extends State<Onboarding> {
                     fontSize: 25,
                     fontWeight: FontWeight.bold),
               ),
-              SizedBox(
-                height: 30,
-              ),
-              Text(
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0),
+              child: Text(
                 " Lorem ipsum dolor sit amet, consectetur \nadipiscing elit, sed.",
                 style: TextStyle(
                   color: kcDarkGreyColor,
@@ -81,78 +86,80 @@ class _OnboardingState extends State<Onboarding> {
                   // fontWeight: FontWeight.bold,
                 ),
               ),
-              Spacer(),
-              SizedBox(
-                height: screenHeightFraction(context, dividedBy: 1.5),
-                child: Stack(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      height: screenHeightFraction(context, dividedBy: 1.5),
-                      child: PageView.builder(
-                          scrollDirection: Axis.horizontal,
-                          controller: _controller,
-                          onPageChanged: (value) {
-                            setState(() {
-                              currentIndex = value;
-                            });
-                          },
-                          itemCount: slides.length,
-                          itemBuilder: (context, index) {
-                            // contents of slider
-                            return Slider(
-                              image: slides[index].getImage()!,
+            ),
+            Spacer(),
+            SizedBox(
+              height: screenHeightFraction(context, dividedBy: 1.5),
+              child: Stack(
+                children: [
+                  Container(
+                    // padding: EdgeInsets.all(10),
+                    height: screenHeightFraction(context, dividedBy: 1.5),
+                    child: PageView.builder(
+                        scrollDirection: Axis.horizontal,
+                        controller: _controller,
+                        onPageChanged: (value) {
+                          setState(() {
+                            currentIndex = value;
+                          });
+                        },
+                        itemCount: slides.length,
+                        itemBuilder: (context, index) {
+                          // contents of slider
+                          return Slider(
+                            image: slides[index].getImage()!,
+                          );
+                        }),
+                  ),
+                  Align(
+                    alignment: Alignment(0, 0.5),
+                    child: Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                          slides.length,
+                          (index) => buildDot(index, context),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment(0, 0.9),
+                    child: Container(
+                      height: 60,
+                      margin: EdgeInsets.all(40),
+                      width: screenWidthFraction(context, dividedBy: 3),
+                      // color: Colors.green,
+                      child: ElevatedButton(
+                        child: Text("Next"),
+                        onPressed: () {
+                          if (currentIndex == slides.length - 1) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LogInOption()),
                             );
-                          }),
-                    ),
-                    Align(
-                      alignment: Alignment(0, 0.5),
-                      child: Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: List.generate(
-                            slides.length,
-                            (index) => buildDot(index, context),
+                          }
+                          _controller.nextPage(
+                              duration: Duration(milliseconds: 100),
+                              curve: Curves.bounceIn);
+                        },
+                        // textColor: Colors.white,
+                        style: ButtonStyle(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                    Align(
-                      alignment: Alignment(0, 0.9),
-                      child: Container(
-                        height: 60,
-                        margin: EdgeInsets.all(40),
-                        width: screenWidthFraction(context, dividedBy: 3),
-                        // color: Colors.green,
-                        child: ElevatedButton(
-                          child: Text("Next"),
-                          onPressed: () {
-                            if (currentIndex == slides.length - 1) {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LogInOption()),
-                              );
-                            }
-                            _controller.nextPage(
-                                duration: Duration(milliseconds: 100),
-                                curve: Curves.bounceIn);
-                          },
-                          // textColor: Colors.white,
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10))),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       backgroundColor: Colors.white,
@@ -167,7 +174,7 @@ class _OnboardingState extends State<Onboarding> {
       margin: EdgeInsets.only(right: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: Colors.green,
+        color: kcWhite,
       ),
     );
   }
