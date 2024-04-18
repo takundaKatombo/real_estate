@@ -120,10 +120,35 @@ class _LoginEmailState extends State<LoginEmail> {
                     ),
                   ],
                 ),
-                // Spacer(),
-                SizedBox(
-                  height: 100,
+                verticalSpaceMedium,
+                Center(
+                  child: SizedBox(
+                      width: screenWidthFraction(context, dividedBy: 1.5),
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Login",
+                          style: TextStyle(
+                              fontFamily: 'Lato',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: kcWhite), // Set text color to white
+                        ),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(kcPrimaryColor),
+                          textStyle: MaterialStateProperty.all(TextStyle(
+                              color: kcWhite)), // Set text color to white
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                          ),
+                        ),
+                      )),
                 ),
+                // Spacer(),
+                verticalSpaceMedium,
                 SizedBox(
                   height: screenHeightFraction(context, dividedBy: 20),
                   child: Row(

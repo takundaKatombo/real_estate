@@ -13,17 +13,25 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          // primarySwatch: kcPrimaryColorMaterial,
-          elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ButtonStyle(
-        textStyle: MaterialStateProperty.all(TextStyle(color: kcWhite)),
-        backgroundColor: MaterialStateProperty.all(kcPrimaryColor),
-        shape: MaterialStateProperty.all(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
+        // primarySwatch: kcPrimaryColorMaterial,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            textStyle: MaterialStateProperty.all(
+              TextStyle(
+                  fontFamily: 'Lato',
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: kcWhite),
+            ),
+            backgroundColor: MaterialStateProperty.all(kcPrimaryColor),
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
           ),
         ),
-      ))),
+      ),
       home: const SplashScreen(),
     );
   }
