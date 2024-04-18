@@ -1,6 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:real_estate/ui/common/ui_helpers.dart';
+import 'package:real_estate/ui/screens/auth/register_screen.dart';
 
 import '../../common/app_colors.dart';
 
@@ -12,6 +14,8 @@ class LoginEmail extends StatefulWidget {
 }
 
 class _LoginEmailState extends State<LoginEmail> {
+  bool _showPassword = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +61,7 @@ class _LoginEmailState extends State<LoginEmail> {
                   decoration: InputDecoration(
                       hintText: "Email",
                       hintStyle: TextStyle(fontFamily: "Lato"),
-                      prefixIcon: Icon(Icons.email),
+                      prefixIcon: Icon(Icons.email_outlined),
                       prefixIconColor: kcPrimaryBlueColor,
                       filled: true,
                       border: OutlineInputBorder(
@@ -70,7 +74,7 @@ class _LoginEmailState extends State<LoginEmail> {
                   height: 20,
                 ),
                 TextFormField(
-                  obscureText: true,
+                  obscureText: _showPassword,
                   decoration: InputDecoration(
                       hintText: "Password",
                       hintStyle: TextStyle(fontFamily: "Lato"),
@@ -91,25 +95,60 @@ class _LoginEmailState extends State<LoginEmail> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return ForgotPasswordBottomSheet();
+                          },
+                        );
+                      },
                       child: Text(
                         "Forgot Password ?",
                         style: TextStyle(color: kcPrimaryBlueColor),
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _showPassword = !_showPassword;
+                        setState(() {});
+                      },
                       child: Text(
-                        "Show Password ?",
+                        _showPassword ? "Show Password " : "Hide Password ",
                         style: TextStyle(color: kcPrimaryBlueColor),
                       ),
                     ),
                   ],
                 ),
-                // Spacer(),
-                SizedBox(
-                  height: 100,
+                verticalSpaceMedium,
+                Center(
+                  child: SizedBox(
+                      width: screenWidthFraction(context, dividedBy: 1.5),
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Login",
+                          style: TextStyle(
+                              fontFamily: 'Lato',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: kcWhite), // Set text color to white
+                        ),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(kcPrimaryColor),
+                          textStyle: MaterialStateProperty.all(TextStyle(
+                              color: kcWhite)), // Set text color to white
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                          ),
+                        ),
+                      )),
                 ),
+                // Spacer(),
+                verticalSpaceMedium,
                 SizedBox(
                   height: screenHeightFraction(context, dividedBy: 20),
                   child: Row(
@@ -161,15 +200,15 @@ class _LoginEmailState extends State<LoginEmail> {
                               "assets/images/facebookicon.svg"),
                         )),
                     Container(
-                        height: 60,
-                        width: screenWidthFraction(context, dividedBy: 3),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: kcVeryLightGrey),
-                        child: Center(
-                          child:
-                              SvgPicture.asset("assets/images/googleicon.svg"),
-                        ))
+                      height: 60,
+                      width: screenWidthFraction(context, dividedBy: 3),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: kcVeryLightGrey),
+                      child: Center(
+                        child: SvgPicture.asset("assets/images/googleicon.svg"),
+                      ),
+                    ),
                   ],
                 ),
                 // Spacer(),
@@ -185,10 +224,18 @@ class _LoginEmailState extends State<LoginEmail> {
                           fontSize: 15,
                           // fontWeight: FontWeight.bold,
                           color: kcPrimaryBlueColor),
-                      children: const <TextSpan>[
+                      children: <TextSpan>[
                         TextSpan(
-                            text: 'Register ?',
-                            style: TextStyle(fontWeight: FontWeight.w800)),
+                            text: 'Register',
+                            style: TextStyle(fontWeight: FontWeight.w800),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => Register(),
+                                  ),
+                                );
+                              }),
                       ],
                     ),
                   ),
@@ -197,6 +244,77 @@ class _LoginEmailState extends State<LoginEmail> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class ForgotPasswordBottomSheet extends StatefulWidget {
+  @override
+  _ForgotPasswordBottomSheetState createState() =>
+      _ForgotPasswordBottomSheetState();
+}
+
+class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextFormField(
+              controller: _emailController,
+              decoration: InputDecoration(
+                  hintText: "Email",
+                  hintStyle: TextStyle(fontFamily: "Lato"),
+                  prefixIcon: Icon(Icons.email_outlined),
+                  prefixIconColor: kcPrimaryBlueColor,
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  fillColor: kcVeryLightGrey),
+            ),
+            SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  // Perform your logic to send the email
+                  // ...
+                  Navigator.pop(context); // Close the bottom sheet
+                }
+              },
+              child: Text('Submit'),
+            ),
+            verticalSpaceSmall,
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 20, 20, 0),
+              height: screenHeightFraction(context, dividedBy: 20),
+              width: screenWidthFraction(context, dividedBy: 3.5),
+              decoration: BoxDecoration(
+                color: skipLightGrey,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    "Cancel",
+                  )),
+            ),
+            verticalSpaceLarge,
+            verticalSpaceLarge,
+          ],
+        ),
       ),
     );
   }
