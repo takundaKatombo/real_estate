@@ -14,14 +14,7 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: Row(
-      //     children: [
-      //       horizontalSpaceSmall,
-
-      //     ],
-      //   ),
-      // ),
+      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
